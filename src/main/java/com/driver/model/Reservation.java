@@ -3,25 +3,21 @@ package com.driver.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "reservation")
+@Table(name="reservation")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-
-    int numberOfHours;
-
-    @ManyToOne
-    @JoinColumn
-    User user;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+    private int numberOfHours;
 
     @ManyToOne
     @JoinColumn
-    Spot spot;
-
-    @OneToOne
+    private User user;
+    @ManyToOne
     @JoinColumn
-    Payment payment;
+    private Spot spot;
+    @OneToOne(mappedBy ="reservation",cascade =CascadeType.ALL)
+    private Payment payment;
 
     public Reservation() {
     }

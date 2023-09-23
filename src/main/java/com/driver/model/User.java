@@ -1,35 +1,30 @@
 package com.driver.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name="user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String phoneNumber;
+    private String password;
+    @OneToMany(mappedBy ="user",cascade =CascadeType.ALL)
+    List<Reservation> reservationList;
 
-    String name;
-
-    String phoneNumber;
-
-    String password;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Reservation> reservationList = new ArrayList<>();
+    public User() {
+    }
 
     public User(int id, String name, String phoneNumber, String password, List<Reservation> reservationList) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.reservationList = reservationList;
-    }
-
-    public User() {
+        this.reservationList = new ArrayList<>();
     }
 
     public int getId() {
